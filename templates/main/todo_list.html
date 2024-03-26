@@ -1,0 +1,51 @@
+{% extends 'layouts/base.html'%}
+{% load my_filters %}
+{%block content%}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-header bg-dark text-white">
+                    Tasks
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Task</th>
+                            <th>Created_at</th>
+                            <th>Event</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for task in tasks %}
+                                <tr>
+                                    <th scope="row">{{forloop.counter}}</th>
+                                    <td>
+                                        {%if task.task_status%}
+                                            <del>{{ task.task_name }}</del>
+                                        {%else%}
+                                            {{ task.task_name|to_upper:'3' }}
+                                        {%endif%}
+                                    </td>
+                                    <td>{{ task.created_at }}</td>
+                                    <td>
+                                        <a href="{% url 'todo_delete' task.id %}" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
+                                        <a href="{% url 'todo_edit' task.id%}" class="btn btn-warning text-white"><i class="bi bi-pencil-fill"></i></a>
+                                        <a href="{% url 'todo_det' task.id%}" class="btn btn-info text-white"><i class="bi bi-eye-fill"></i></a>
+                                        {% if task.task_status %}
+                                            <a href="{% url 'todo_check' task.id%}" class="btn btn-success text-white"><i class="bi bi-check-circle-fill"></i></a>
+                                        {% else %}
+                                            <a href="{% url 'todo_check' task.id%}" class="btn btn-secondary text-white"><i class="bi bi-x-circle-fill"></i></a>
+                                        {% endif %}
+                                        
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>    
+        </div>
+    </div>
+{%endblock%}

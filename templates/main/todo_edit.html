@@ -1,0 +1,29 @@
+{%extends 'layouts/base.html'%}
+
+{%block content%}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <h5 class="card-header bg-dark text-white">Task edit</h5>
+                <div class="card-body">
+                    <form action="{% url 'todo_edit'%}" method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-lable">Task name</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" 
+                            placeholder="task name" name="task_name" value="{{tasks.task_name}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-lable">Task description</label>
+                            <textarea class="form-control" id="exampleFormControlInput1" row="3" name="description">{{tasks.task_description}}</textarea>
+                        </div>
+                        <button class="btn btn-success px-5 py-2" type="submit">Edit</button>
+                    </form>
+                </div>
+            </div>  
+        </div>
+    </div>
+</div>            
+
+{%endblock%}
